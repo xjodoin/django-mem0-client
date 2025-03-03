@@ -3,7 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/django-mem0-client.svg)](https://badge.fury.io/py/django-mem0-client)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Django implementation of the mem0 memory system, using Django models for storing memory history instead of SQLite directly.
+A Django implementation of the [mem0](https://github.com/mem0ai/mem0) memory system, using Django models for storing memory history instead of SQLite directly.
 
 ## Overview
 
@@ -31,36 +31,23 @@ pip install django-mem0-client
 - Django 4.0+
 - mem0 library
 
-### Manual Installation
+### Setting Up in Your Django Project
 
-If you want to install from source:
-
-1. Clone this repository:
-```bash
-git clone https://github.com/xjodoin/django-mem0-client.git
-cd django-mem0-client
-```
-
-2. Install the package in development mode:
-```bash
-pip install -e .
-```
-
-3. Add 'mem0client' to your INSTALLED_APPS in settings.py:
+1. Add 'mem0client' to your INSTALLED_APPS in settings.py:
 ```python
 INSTALLED_APPS = [
     # ...
-    'mem0client',
+    'mem0client',  # Not 'django-mem0-client'
     # ...
 ]
 ```
 
-4. Apply migrations to set up the database:
+2. Apply migrations to set up the database:
 ```bash
 python manage.py migrate
 ```
 
-5. Create a superuser for the admin interface (optional):
+3. Create a superuser for the admin interface (optional):
 ```bash
 python manage.py createsuperuser
 ```
@@ -75,7 +62,7 @@ import django
 from mem0.configs.base import MemoryConfig
 
 # Set up Django environment
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mem0_django.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project.settings')
 django.setup()
 
 # Import after Django setup
@@ -98,6 +85,51 @@ search_results = memory.search(query="tennis", user_id="user123")
 memory_id = search_results["results"][0]["id"]
 history = memory.history(memory_id)
 ```
+
+### Using Configuration Options
+
+You can customize the memory client using the same configuration options as the original mem0 library:
+
+```python
+from mem0.configs.base import MemoryConfig
+from mem0client.memory_client import DjangoMemory
+
+# Create a configuration with custom settings
+config = MemoryConfig(
+    embedding_model="text-embedding-3-small",  # OpenAI embedding model to use
+    vector_store_path="./vector_store",        # Path to store vectors
+    distance_metric="cosine",                  # Distance metric for vector search
+    add_timestamps=True,                       # Add timestamps to memories
+    chunk_size=1000,                           # Size of text chunks
+    chunk_overlap=200,                         # Overlap between chunks
+)
+
+# Create a memory client with custom configuration
+memory = DjangoMemory(config)
+```
+
+### Using from_config Method
+
+You can also initialize the client using a dictionary of configuration options:
+
+```python
+from mem0client.memory_client import DjangoMemory
+
+# Configuration as a dictionary
+config_dict = {
+    "embedding_model": "text-embedding-3-small",
+    "vector_store_path": "./vector_store",
+    "distance_metric": "cosine",
+    "add_timestamps": True,
+    "chunk_size": 1000,
+    "chunk_overlap": 200,
+}
+
+# Create a memory client from config dictionary
+memory = DjangoMemory.from_config(config_dict)
+```
+
+Refer to the [official mem0 documentation](https://github.com/mem0ai/mem0) for a complete list of configuration options and their meanings.
 
 ### Running the Example Script
 
@@ -132,9 +164,11 @@ The `DjangoMemory` class implements the `MemoryBase` interface from mem0 and pro
 - `history(memory_id)`: Get the history of changes for a memory
 - `reset()`: Reset the memory store
 
+Detailed API documentation can be found in the [mem0 official documentation](https://github.com/mem0ai/mem0#api-reference).
+
 ## Configuration
 
-The client accepts the same configuration parameters as the original mem0 `Memory` class through the `MemoryConfig` object.
+The client accepts the same configuration parameters as the original mem0 `Memory` class through the `MemoryConfig` object. See the [mem0 configuration documentation](https://github.com/mem0ai/mem0#configuration) for details.
 
 ## Integration with Existing Django Projects
 
