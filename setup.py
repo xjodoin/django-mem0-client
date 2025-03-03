@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8'
 
 setup(
     name="django-mem0-client",
-    version="0.1.1",
+    version="0.1.2",
     author="Xavier Jodoin",
     author_email="xavier@jodoin.me",
     description="A Django implementation of the mem0 memory system",
