@@ -1,20 +1,8 @@
-# mem0client/memory_manager.py
 import logging
-from datetime import datetime
-import pytz
+
 from .models import MemoryHistory
 
 logger = logging.getLogger(__name__)
-
-# Try importing telemetry, but don't fail if it's not available
-try:
-    from mem0.memory.telemetry import capture_event
-except ImportError:
-    # Create a dummy capture_event function if the real one isn't available
-    def capture_event(*args, **kwargs):
-        logger.debug("Telemetry capture_event called but telemetry is not available")
-        pass
-
 
 class DjangoMemoryManager:
     """

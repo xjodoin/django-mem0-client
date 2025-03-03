@@ -7,14 +7,14 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8'
 
 setup(
     name="django-mem0-client",
-    version="0.1.0",
+    version="0.1.1",
     author="Xavier Jodoin",
     author_email="xavier@jodoin.me",
     description="A Django implementation of the mem0 memory system",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/xjodoin/django-mem0-client",
-    packages=find_packages(),
+    packages=find_packages(include=['mem0client', 'mem0client.*']),
     include_package_data=True,
     classifiers=[
         "Development Status :: 4 - Beta",
