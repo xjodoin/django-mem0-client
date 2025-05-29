@@ -1,0 +1,4 @@
+Django>=4.0.0
+mem0ai>=0.1.102
+pytz>=2022.1
+pydantic>=1.9.0
