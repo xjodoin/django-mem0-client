@@ -1,6 +1,6 @@
 # Django Mem0 Client Changelog
 
-## [Updated] - 2025-05-29
+## [0.2.2] - 2025-05-29
 
 ### Updated DjangoMemoryManager to Match SQLite Implementation
 
