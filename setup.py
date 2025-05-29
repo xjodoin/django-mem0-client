@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8'
 
 setup(
     name="django-mem0-client",
-    version="0.1.2",
+    version="0.2.0",
     author="Xavier Jodoin",
     author_email="xavier@jodoin.me",
     description="A Django implementation of the mem0 memory system",
@@ -31,7 +31,7 @@ setup(
     python_requires=">=3.8",
     install_requires=[
         "Django>=4.0.0",
-        "mem0ai>=0.1.58",
+        "mem0ai>=0.1.102",
         "pytz>=2022.1",
         "pydantic>=1.9.0",
     ],

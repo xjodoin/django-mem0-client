@@ -33,7 +33,8 @@ class DjangoMemory(Memory):
         """
         self.config = config
 
-        self.custom_prompt = self.config.custom_prompt
+        self.custom_fact_extraction_prompt = self.config.custom_fact_extraction_prompt
+        self.custom_update_memory_prompt = self.config.custom_update_memory_prompt
         self.embedding_model = EmbedderFactory.create(self.config.embedder.provider, self.config.embedder.config)
         self.vector_store = VectorStoreFactory.create(
             self.config.vector_store.provider, self.config.vector_store.config
